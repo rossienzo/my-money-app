@@ -8,18 +8,30 @@ BillingCycle.updateOptions({new: true, runValidators: true})
 
 
 // Correção para o problema com as rotas do tipo GET
-BillingCycle.route('get', (req, resp, next) => {
+BillingCycle.route('get', (req, res, next) => {
 
-    BillingCycle.find({}, (err, docs) => {
+    BillingCycle.find({}, (error, docs) => {
 
-        if(!err) {
-            resp.json(docs)
+        if(!error) {
+            res.json(docs)
         } else {
-            resp.status(500).json({errors: [error]})
+            res.status(500).json({errors: [error]})
         }
 
     })
 
 })
+
+BillingCycle.route('count', (req, res, next) => {
+
+    BillingCycle.count((error, docs) => {
+        if(!error) {
+            res.json({ docs })
+        } else {
+            res.status(500).json({ errors: [error]})
+        }
+    });
+});
+
 
 module.exports = BillingCycle;

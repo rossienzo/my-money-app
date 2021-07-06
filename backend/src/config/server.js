@@ -20,8 +20,8 @@ server.use(function (req, res, next) {
 server.use(bodyParser.urlencoded({ extended: true}));
 server.use(bodyParser.json());
 
-
-
 server.listen(port, function() {
     console.log(`Backend na porta ${port}`);
 });
+
+module.exports = server;
