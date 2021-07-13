@@ -5,7 +5,7 @@ export default props => (
     <Grid cols={props.cols}>
         <div className={`small-box bg-${props.color}`}>
             <div className="inner">
-                <h3>{props.value}</h3>
+                <h3>R$ {props.value}</h3>
                 <p>{props.text}</p>
             </div>
             <div className="icon">
