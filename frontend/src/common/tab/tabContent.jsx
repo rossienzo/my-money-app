@@ -1,25 +1,20 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-export default class TabContent extends Component {
+class TabContent extends Component {
 
     render() {
+        const selected = this.props.tab.selected === this.props.id;
         return (
-            <table>
-                <thead>
-                    <tr>
-                        <th>1</th>
-                        <th>2</th>
-                        <th>3</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>asd</td>
-                        <td>asdd</td>
-                        <td>asdds</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div id={this.props.id} className={`tab-pane ${selected ? 'active' : ''}`}>
+                {this.props.children}
+            </div>
         )
     }
 }
+
+const mapStateToProps = state => ({tab: state.tab});
+//const mapDispathToProps = dispatch => bindActionCreators({}, dispatch);
+
+export default connect(mapStateToProps)(TabContent);
