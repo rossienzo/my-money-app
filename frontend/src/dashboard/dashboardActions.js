@@ -8,3 +8,11 @@ export function getSummary() {
         payload: request
     }
  }
+
+export function getUser() {
+    const user = {name: 'Celso', last: 'Cornnell', age: 10}
+    return {
+        type: 'USER_CONNECTION',
+        payload: user
+    }
+}

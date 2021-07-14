@@ -1,29 +1,36 @@
+/**
+ * Dashboard2 é um exemplo sem o uso de Redux
+ */
+
 import React, { Component } from 'react';
 import ContentHeader from '../common/template/contentHeader';
 import Content from '../common/template/content';
 import ValueBox from '../common/widget/valueBox';
 import Row from '../common/layout/row';
 
-// Redux
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { getSummary, getUser } from './dashboardActions';
+import axios from 'axios';
+const BASE_URL = 'http://localhost:3003/api';
 
-class Dashboard extends Component {
+export default class Dashboard2 extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = { credit: 0, debt: 0 }
+    }
 
     componentDidMount() {
-        this.props.getSummary();
-        this.props.getUser();
+        axios.get(`${BASE_URL}/billingCycles/summary`)
+            .then(resp => this.setState(resp.data))
+            
     }
 
     render() {
       
-        const { credit, debt } = this.props.summary; // destructuring
-        //const { name, last } = this.props.user; // destructuring
-        
+        const { credit, debt } = this.state
+
         return (
             <div>
-                <ContentHeader title="Dashboard" small="Versão 1.0"/>
+                <ContentHeader title="Dashboard2" small="Versão 2.0"/>
                 <Content>
                     <Row>
                         <ValueBox cols="12 4" color="green" icon="bank" value={`R$ ${credit}`} text="Total de créditos"/>
@@ -35,7 +42,3 @@ class Dashboard extends Component {
         )
     }
 }
-
-const mapStateToProps = state => ({summary: state.dashboard.summary, user: state.dashboard.user});
-const mapDispatchToProps = dispach => bindActionCreators({getSummary, getUser}, dispach);
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard); // Retorna o Dashboard integrado ao estado
