@@ -6,11 +6,17 @@ import Row from '../common/layout/row';
 
 // Redux
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getSummary } from './dashboardActions';
 
 class Dashboard extends Component {
-    
-    render() {
 
+    componentDidMount() {
+        this.props.getSummary();
+    }
+
+    render() {
+      
         const { credit, debt } = this.props.summary; // destructuring
 
         return (
@@ -20,7 +26,7 @@ class Dashboard extends Component {
                     <Row>
                         <ValueBox cols="12 4" color="green" icon="bank" value={`R$ ${credit}`} text="Total de créditos"/>
                         <ValueBox cols="12 4" color="red" icon="credit-card" value={`R$ ${debt}`} text="Total de débitos"/>
-                        <ValueBox cols="12 4" color="blue" icon="money" value="930.01" text="Valor consolidado"/>
+                        <ValueBox cols="12 4" color="blue" icon="money" value={`R$ ${credit - debt}`} text="Valor consolidado"/>
                     </Row>
                 </Content>
             </div>
@@ -28,6 +34,6 @@ class Dashboard extends Component {
     }
 }
 
-const mapStateToProps = state => ({summary: state.dashboard.summary})
-
-export default connect(mapStateToProps)(Dashboard); // Retorna o Dashboard integrado ao estado
+const mapStateToProps = state => ({summary: state.dashboard.summary});
+const mapDispatchToProps = dispach => bindActionCreators({getSummary}, dispach);
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard); // Retorna o Dashboard integrado ao estado
