@@ -10,15 +10,16 @@ import TabHeader from '../common/tab/tabHeader';
 import TabsContent from '../common/tab/tabsContent';
 import TabContent from '../common/tab/tabContent';
 import { selectTab, showTabs } from '../common/tab/tabActions';
+import { create } from './billingActions';
+import Form from './billingCycleForm';
 
-
+import BillingCycleList from './billingCycleList';
 
 class BillingCycle extends Component {
 
     componentDidMount() {
-        // inicia a pagina com a tabList aberta
-        this.props.selectTab('tabList');
-        this.props.showTabs('tabList', 'tabCreate');
+        this.props.selectTab('tabList'); // inicia a pagina com a tabList aberta
+        this.props.showTabs('tabList', 'tabCreate'); // define as tabs que devem ser exibidas
     }
 
     render() {
@@ -34,11 +35,11 @@ class BillingCycle extends Component {
                             <TabHeader label="Excluir" icon="trash-o" target="tabDelete"/>
                         </TabsHeader>
                         <TabsContent>
-                            <TabContent id='tabList'>
-                                <h1>Lista</h1>
+                            <TabContent id="tabList">
+                                <BillingCycleList id='tabList'/>
                             </TabContent>
                             <TabContent id='tabCreate'>
-                                <h1>Incluir</h1>
+                                <Form onSubmit={this.props.create}/>
                             </TabContent>
                             <TabContent id='tabUpdate'>
                                 <h1>Alterar</h1>
@@ -53,6 +54,6 @@ class BillingCycle extends Component {
         )
     }
 }
-
-const mapDispathToProps = dispatch => bindActionCreators({selectTab, showTabs}, dispatch);
-export default connect(null, mapDispathToProps)(BillingCycle);
+const mapStateToProps = state => ({list: state.billingCycle.list})
+const mapDispathToProps = dispatch => bindActionCreators({selectTab, showTabs, create}, dispatch);
+export default connect(mapStateToProps, mapDispathToProps)(BillingCycle);

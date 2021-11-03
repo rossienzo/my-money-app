@@ -20,7 +20,7 @@ class Dashboard extends Component {
       
         const { credit, debt } = this.props.summary; // destructuring
         //const { name, last } = this.props.user; // destructuring
-        
+      
         return (
             <div>
                 <ContentHeader title="Dashboard" small="Versão 1.0"/>
