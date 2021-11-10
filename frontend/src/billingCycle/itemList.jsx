@@ -27,7 +27,7 @@ class ItemList extends Component
     renderRows() 
     {
         const list = this.props.list || [];
-        
+
         return list.map((item, index) => (
             <tr key={index}>
                 <td>

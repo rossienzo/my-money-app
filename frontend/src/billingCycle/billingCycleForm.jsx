@@ -10,9 +10,11 @@ import { init } from './billingActions';
 
 class BillingCycleForm extends Component
 {
+    
     calculateSummary() 
     {
         const sum = (t, v) => t + v
+
         return {
             //o + converte a string para numérico
             // o reduce transforma o array em um único valor utilizando a soma
@@ -23,8 +25,9 @@ class BillingCycleForm extends Component
 
     render()
     {
+        
         const { handleSubmit, readOnly, credits, debts } = this.props;
-        const { sumOfCredits, sumOfDebts } = this.calculateSummary;
+        const { sumOfCredits, sumOfDebts } = this.calculateSummary();
 
         return (
             <form role="form" action="" onSubmit={handleSubmit}>
