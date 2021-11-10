@@ -4,7 +4,7 @@ import { reset as resetForm, initialize } from 'redux-form';
 import { showTabs, selectTab } from '../common/tab/tabActions';
 
 const BASE_URL = 'http://localhost:3003/api';
-const INITIAL_VALUES = {};
+const INITIAL_VALUES = {credits: [{}]}
 
 export function getList() 
 {
@@ -65,6 +65,8 @@ export function showDelete(billingCycle)
     ]
 } 
 
+// Mostra a tab de criação e a exibe, captura a lista e 
+// inicia o formulário com os valores zerados
 export function init()
 {
     return [
